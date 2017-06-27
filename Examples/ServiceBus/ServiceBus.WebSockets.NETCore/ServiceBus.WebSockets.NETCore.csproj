@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\Scenarios\Example.cs" Link="Example.cs" />
+    <Compile Include="..\Scenarios\WebSocketsExample.cs" Link="WebSocketsExample.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\src\Amqp.Net.csproj" />
+  </ItemGroup>
+
+</Project>

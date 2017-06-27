@@ -25,10 +25,10 @@ namespace ServiceBus.Scenarios
         // Entity should exist already under the specified Service Bus namespace.
         // The SAS policy should allow Send or Listen action for the given entity
         // or namespace as required by the sample.
-        public string Namespace = "[redacted].servicebus.windows.net";
+        public string Namespace = "servicebus.windows.net";
         public string KeyName = "RootManageSharedAccessKey";
-        public string KeyValue = "[redacted]";
-        public string Entity = "test_study2";
+        public string KeyValue = "";
+        public string Entity = "test_study";
 
         public Address GetAddress()
         {

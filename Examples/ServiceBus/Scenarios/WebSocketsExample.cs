@@ -54,11 +54,11 @@ namespace ServiceBus.Scenarios
             Trace.WriteLine(TraceLevel.Information, "Sending {0} messages...", count);
             for (int i = 0; i < count; i++)
             {
-                Message message = new Message("testing");
+                Message message = new Message($"testing-{i}");
                 message.Properties = new Properties() { MessageId = "websocket-test-" + i };
                 message.MessageAnnotations = new MessageAnnotations();                
-                message.MessageAnnotations.Map.Add("x-opt-scheduled-enqueue-time", DateTime.UtcNow.AddMinutes(1));
-                await sender.SendAsync(message);
+        //       message.MessageAnnotations.Map.Add("x-opt-scheduled-enqueue-time", DateTime.UtcNow.AddMinutes(1));
+              await sender.SendAsync(message);
             }
 
             Trace.WriteLine(TraceLevel.Information, "Closing sender...");
@@ -71,9 +71,11 @@ namespace ServiceBus.Scenarios
                 Message message = await receiver.ReceiveAsync();
                 if (message == null)
                 {
-                    break;
+                    Console.WriteLine("No more messages received");
+                    break;                 
                 }
-
+                var msgpayLoad = message.GetBody<string>();
+                Console.WriteLine($"RECEIVED {msgpayLoad}");
                 receiver.Accept(message);
             }
 
@@ -82,6 +84,8 @@ namespace ServiceBus.Scenarios
 
             Trace.WriteLine(TraceLevel.Information, "Shutting down...");
             await session.CloseAsync();
+            Console.WriteLine("Done");
+            Console.ReadLine();
             await connection.CloseAsync();
         }
     }
