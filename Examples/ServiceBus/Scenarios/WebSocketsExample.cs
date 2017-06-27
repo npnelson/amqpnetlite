@@ -21,6 +21,7 @@ namespace ServiceBus.Scenarios
     using System.Threading.Tasks;
     using Amqp;
     using Amqp.Framing;
+    using System;
 
     /// <summary>
     /// This example assumes a queue is precreated. Example.Entity should be set to the queue name.
@@ -55,6 +56,8 @@ namespace ServiceBus.Scenarios
             {
                 Message message = new Message("testing");
                 message.Properties = new Properties() { MessageId = "websocket-test-" + i };
+                message.MessageAnnotations = new MessageAnnotations();                
+                message.MessageAnnotations.Map.Add("x-opt-scheduled-enqueue-time", DateTime.UtcNow.AddMinutes(1));
                 await sender.SendAsync(message);
             }
 
